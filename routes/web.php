@@ -34,7 +34,10 @@ Route::get('/', function () {
 
 Route::post('/search', [SearchController::class, 'get']);
 Route::post('/jobs/search', [SearchController::class, 'getJobs']);
+Route::get('/jobs', [JobController::class, 'index']);
+Route::get('/jobs/{job}', [JobController::class, 'show']);
 
+Route::post('/jobs/{job}/apply', [JobController::class, 'apply'])->middleware('auth', "can:can-apply");
 
 Route::middleware('guest')->group(function () {
     Route::get('/register', [RegisterUserController::class, 'create']);
@@ -43,13 +46,10 @@ Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginUserController::class, 'create']);
     Route::post('/login', [LoginUserController::class, 'store']);
 });
-
 Route::delete('/logout', [LoginUserController::class, 'destroy'])->middleware('auth');
 
-
-Route::get('/jobs', [JobController::class, 'index']);
 Route::get('/companies', [CompaniesController::class, 'index']);
 
-Route::get('/profile', [ProfileController::class, 'index'])->middleware('auth');
 
+Route::get('/profile', [ProfileController::class, 'index'])->middleware('auth');
 Route::get('/admin', [AdminController::class, 'index'])->middleware('auth', 'can:access-admin');
