@@ -1,0 +1,1 @@
+<hr class="bg-white/10 my-10 mt-4 h-px w-full">
