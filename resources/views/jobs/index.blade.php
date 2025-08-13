@@ -2,7 +2,7 @@
     <section>
         <x-forms.search-form action="/jobs/search" title="Search for Jobs" />
     </section>
-    <section class="space-y-4">
+    <section class="space-y-4 pb-6">
         @foreach ($jobs as $job)
             <x-job-card-wide title="{{ $job->title }}" company="{{ $job->employer->name }}"
                 company_url="/companies/{{ $job->employer->id }}" salary="from {{ $job->salary }}"

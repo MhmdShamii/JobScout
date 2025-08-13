@@ -37,23 +37,24 @@ class SearchController extends Controller
         ]);
     }
 
-    public function getJobs()
+    public function getJobs(Request $request)
     {
-        $query = request('q');
+        $q = $request->string('q')->toString();
 
-        $base = Job::with('employer:id,name', 'tags:id,title')
-            ->where('title', 'like', "%{$query}%")
-            ->orWhereHas('tags', fn($q) => $q->where('title', 'like', "%{$query}%"));
-
-        $jobs = $base->clone()
-            ->inRandomOrder()
-            ->get();
+        $jobs = Job::with(['employer:id,name', 'tags:id,title'])
+            ->when($q !== '', function ($query) use ($q) {
+                $query->where('title', 'like', "%{$q}%")
+                    ->orWhereHas('tags', fn($t) => $t->where('title', 'like', "%{$q}%"));
+            })
+            ->latest()
+            ->paginate(10)               // <-- paginate, not get
+            ->withQueryString();
 
 
 
         return view('jobs.index', [
             'jobs' => $jobs,
-            'query' => $query
+            'query' => $q
         ]);
     }
 }

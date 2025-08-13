@@ -10,9 +10,9 @@ class JobController extends Controller
 {
     public function index()
     {
-        $jobs = Job::with(['employer:id,name', 'tags:id,title']) // optional: avoids N+1
-            ->latest()                                          // orders by created_at desc
-            ->paginate(10)                                      // <— no get() here
+        $jobs = Job::with(['employer:id,name', 'tags:id,title'])
+            ->latest()
+            ->paginate(15)
             ->withQueryString();
 
         return view("jobs.index", [
