@@ -50,6 +50,6 @@ Route::delete('/logout', [LoginUserController::class, 'destroy'])->middleware('a
 Route::get('/jobs', [JobController::class, 'index']);
 Route::get('/companies', [CompaniesController::class, 'index']);
 
-Route::get('/profile', [ProfileController::class, 'index']);
+Route::get('/profile', [ProfileController::class, 'index'])->middleware('auth');
 
 Route::get('/admin', [AdminController::class, 'index'])->middleware('auth', 'can:access-admin');

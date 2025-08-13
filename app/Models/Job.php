@@ -29,4 +29,9 @@ class Job extends Model
     {
         return $this->belongsToMany(Tag::class);
     }
+
+    public function applicants()
+    {
+        return $this->belongsToMany(User::class, 'user_job_application', 'job_id', 'user_id');
+    }
 }

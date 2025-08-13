@@ -18,4 +18,8 @@ class Tag extends Model
     {
         return $this->belongsToMany(Job::class);
     }
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
 }

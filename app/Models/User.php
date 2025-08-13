@@ -60,4 +60,13 @@ class User extends Authenticatable
     {
         return $this->hasManyThrough(Job::class, Employer::class);
     }
+    public function applications()
+    {
+        return $this->belongsToMany(Job::class, 'user_job_application', 'user_id', 'job_id');
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
 }
