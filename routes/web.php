@@ -9,6 +9,7 @@ use App\Http\Controllers\RegisterUserController;
 use App\Http\Controllers\LoginUserController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
     $featuredJobs = Job::with('employer:id,name', 'tags:id,title')
@@ -48,5 +49,7 @@ Route::delete('/logout', [LoginUserController::class, 'destroy'])->middleware('a
 
 Route::get('/jobs', [JobController::class, 'index']);
 Route::get('/companies', [CompaniesController::class, 'index']);
+
+Route::get('/profile', [ProfileController::class, 'index']);
 
 Route::get('/admin', [AdminController::class, 'index'])->middleware('auth', 'can:access-admin');

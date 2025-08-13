@@ -62,8 +62,6 @@
                                 <div class="py-1">
                                     <a href="/profile" class="block px-4 py-2 text-sm hover:bg-white/5" role="menuitem">View
                                         Profile</a>
-                                    <a href="/settings" class="block px-4 py-2 text-sm hover:bg-white/5"
-                                        role="menuitem">Settings</a>
                                     <div class="my-1 border-t border-white/10"></div>
                                     <x-forms.form method="POST" action="/logout" class="block">
                                         @method('DELETE')
