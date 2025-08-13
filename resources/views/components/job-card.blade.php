@@ -1,4 +1,4 @@
-@props(['title', 'company', 'company_url', 'salary', 'type', 'tags', 'img'])
+@props(['title', 'company', 'company_url', 'job_url', 'salary', 'type', 'tags', 'img'])
 
 <x-panel class="flex-col items-center text-center">
 
@@ -6,7 +6,9 @@
         href="{{ $company_url }}">{{ $company }}</a>
 
     <div class="items-center py-8">
-        <h3 class="font-bold group-hover:text-blue-500 text-xl">{{ $title }}</h3>
+        <a href="{{ $job_url }}">
+            <h3 class="font-bold group-hover:text-blue-500 text-xl">{{ $title }}</h3>
+        </a>
         <p class="text-xs mt-4 text-white/70">{{ $type }} - {{ $salary }}</p>
     </div>
 

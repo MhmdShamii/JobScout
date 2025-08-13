@@ -11,9 +11,9 @@
 
                 @foreach ($featuredJobs as $featuredJob)
                     <x-job-card title="{{ $featuredJob->title }}" company="{{ $featuredJob->employer->name }}"
-                        company_url="/companies/{{ $featuredJob->employer->id }}" salary="{{ $featuredJob->salary }}"
-                        type="{{ $featuredJob->employment_type }}" :tags="$featuredJob->tags"
-                        img="https://picsum.photos/seed/{{ $featuredJob->id }}/42/42" />
+                        company_url="/companies/{{ $featuredJob->employer->id }}" job_url="/jobs/{{ $featuredJob->id }}"
+                        salary="{{ $featuredJob->salary }}" type="{{ $featuredJob->employment_type }}"
+                        :tags="$featuredJob->tags" img="https://picsum.photos/seed/{{ $featuredJob->id }}/42/42" />
                 @endforeach
             </div>
         </section>
@@ -34,8 +34,8 @@
             <div class="space-y-4">
                 @foreach ($allJobs as $job)
                     <x-job-card-wide title="{{ $job->title }}" company="{{ $job->employer->name }}"
-                        company_url="/companies/{{ $job->employer->id }}" salary="from {{ $job->salary }}"
-                        type="{{ $job->employment_type }}" :tags="$job->tags"
+                        company_url="/companies/{{ $job->employer->id }}" job_url="/jobs/{{ $job->id }}"
+                        salary="from {{ $job->salary }}" type="{{ $job->employment_type }}" :tags="$job->tags"
                         img="https://picsum.photos/seed/{{ $job->id }}/75/75">
                     </x-job-card-wide>
                 @endforeach
