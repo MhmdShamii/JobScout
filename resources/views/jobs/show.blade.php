@@ -1,15 +1,19 @@
 <x-layout>
     <div class="space-y-6">
 
+        <section>
         <x-section-heading>Position</x-section-heading>
-        <h1>{{ $job->title }}</h1>
+        <h1>{{ $job->title }} / {{ $job->employment_type }}</h1>
+        </section>
 
-        <x-section-heading>Description</x-section-heading>
-        <p class="text-gray-300">{{ $job->description }} </p>
+        <section>
+            <x-section-heading>Description</x-section-heading>
+            <p class="text-gray-300">{{ $job->description }} </p>
+        </section>
 
         <section>
             <x-section-heading>Employer</x-section-heading>
-            <p>{{ $job->employer->name }}</p>
+            <a href="/companies/{{ $job->employer->id }}">{{ $job->employer->name }}</a>
             <p>{{$job->employer->user->location}}</p>
         </section>
 

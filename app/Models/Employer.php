@@ -14,6 +14,8 @@ class Employer extends Model
         'user_id',
         'name',
         'logo',
+        'location',
+        'description',
     ];
 
     public function user()

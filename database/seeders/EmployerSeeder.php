@@ -22,7 +22,9 @@ class EmployerSeeder extends Seeder
 
             Employer::factory()->create([
                 'user_id' => $user->id,
-                'name' => $user->name,
+                'name' => fake()->company(),
+                'location' => fake()->city() . ', ' . fake()->state(),
+                'description' => fake()->paragraph(2),
             ]);
         }
     }

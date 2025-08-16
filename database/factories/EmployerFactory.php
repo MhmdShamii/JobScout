@@ -21,6 +21,8 @@ class EmployerFactory extends Factory
             'name' => fake()->company(),
             'logo' => fake()->imageUrl(),
             'user_id' => User::factory(),
+            'location' => fake()->city() . ', ' . fake()->state(),
+            'description' => fake()->paragraph(2),
         ];
     }
 }

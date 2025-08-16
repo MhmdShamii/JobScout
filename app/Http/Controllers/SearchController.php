@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employer;
 use Illuminate\Http\Request;
 use App\Models\Job;
 use App\Models\Tag;
@@ -54,6 +55,24 @@ class SearchController extends Controller
 
         return view('jobs.index', [
             'jobs' => $jobs,
+            'query' => $q
+        ]);
+    }
+
+    public function getCompanies(Request $request)
+    {
+        $q = $request->string('q')->toString();
+
+        $companies = Employer::withCount('jobs')
+            ->when($q !== '', function ($query) use ($q) {
+                $query->where('name', 'like', "%{$q}%");
+            })
+            ->latest()
+            ->paginate(12)
+            ->withQueryString();
+
+        return view('companies.index', [
+            "companies" => $companies,
             'query' => $q
         ]);
     }

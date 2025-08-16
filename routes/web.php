@@ -34,9 +34,10 @@ Route::get('/', function () {
 
 Route::post('/search', [SearchController::class, 'get']);
 Route::post('/jobs/search', [SearchController::class, 'getJobs']);
+Route::post('/companies/search', [SearchController::class, 'getCompanies']);
+
 Route::get('/jobs', [JobController::class, 'index']);
 Route::get('/jobs/{job}', [JobController::class, 'show']);
-
 Route::post('/jobs/{job}/apply', [JobController::class, 'apply'])->middleware('auth', "can:can-apply");
 
 Route::middleware('guest')->group(function () {
@@ -49,6 +50,7 @@ Route::middleware('guest')->group(function () {
 Route::delete('/logout', [LoginUserController::class, 'destroy'])->middleware('auth');
 
 Route::get('/companies', [CompaniesController::class, 'index']);
+Route::get('/companies/{company}', [CompaniesController::class, 'show']);
 
 
 Route::get('/profile', [ProfileController::class, 'index'])->middleware('auth');
