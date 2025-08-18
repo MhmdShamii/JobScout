@@ -10,6 +10,7 @@ use App\Http\Controllers\LoginUserController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TagController;
 
 Route::get('/', function () {
     $featuredJobs = Job::with('employer:id,name', 'tags:id,title')
@@ -54,4 +55,6 @@ Route::get('/companies/{company}', [CompaniesController::class, 'show']);
 
 
 Route::get('/profile', [ProfileController::class, 'index'])->middleware('auth');
+
 Route::get('/admin', [AdminController::class, 'index'])->middleware('auth', 'can:access-admin');
+Route::post('/tag/store', [TagController::class, 'store'])->middleware('auth', 'can:access-admin');

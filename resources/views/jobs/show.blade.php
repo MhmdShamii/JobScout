@@ -26,6 +26,9 @@
         </div>
 
     </div>
+    @guest
+        <a href="/login" class="p-5 bg-blue-500 block w-fit m-auto mt-2 rounded-2xl">You have to login first</a>
+    @endguest
     @can('can-apply')
         <x-forms.form method="POST" action="/jobs/{{ $job->id }}/apply">
             <x-forms.input :label="false" type="hidden" name="job_id" value="{{ $job->id }}" />
