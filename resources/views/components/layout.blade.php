@@ -63,6 +63,11 @@
                                     <a href="/profile" class="block px-4 py-2 text-sm hover:bg-white/5" role="menuitem">View
                                         Profile</a>
                                     <div class="my-1 border-t border-white/10"></div>
+                                    @can('isCompany')
+                                        <a href="/job/create" class="block px-4 py-2 text-sm hover:bg-white/5" role="menuitem">
+                                            create Job</a>
+                                        <div class="my-1 border-t border-white/10"></div>
+                                    @endcan
                                     <x-forms.form method="POST" action="/logout" class="block">
                                         @method('DELETE')
                                         <button type="submit"

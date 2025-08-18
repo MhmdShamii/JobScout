@@ -17,7 +17,7 @@ class Job extends Model
         'salary',
         'location',
         'employment_type',
-        'featured',
+        'featured'
     ];
 
     public function employer()

@@ -2,6 +2,9 @@
     <section>
         <x-forms.search-form action="/jobs/search" title="Search for Jobs" />
     </section>
+    @can('isCompany')
+        <a href="/job/create" class="block w-fit rounded-lg p-2 text-xs bg-blue-400 mb-4 ml-auto"> Create Job</a>
+    @endcan
     <section class="space-y-4 pb-6">
         @foreach ($jobs as $job)
             <x-job-card-wide title="{{ $job->title }}" company="{{ $job->employer->name }}"

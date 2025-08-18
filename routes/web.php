@@ -41,12 +41,19 @@ Route::middleware('auth')->group(function () {
     Route::delete('/logout', [LoginUserController::class, 'destroy']);
     Route::get('/profile', [ProfileController::class, 'index']);
 
+    // users
     Route::post('/jobs/{job}/apply', [JobController::class, 'apply'])
-        ->middleware('can:can-apply');
+        ->middleware('can:isUser');
 
     // Admin-only
-    Route::middleware('can:access-admin')->group(function () {
+    Route::middleware('can:isAdmin')->group(function () {
         Route::get('/admin', [AdminController::class, 'index']);
         Route::post('/tag/store', [TagController::class, 'store']);
+    });
+
+    //companies
+    Route::middleware('can:isCompany')->group(function () {
+        Route::get('/job/create', [JobController::class, 'create']);
+        Route::post('/job/create', [JobController::class, 'store']);
     });
 });

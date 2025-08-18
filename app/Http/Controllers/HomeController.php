@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use app\Models\Job;
-use app\Models\Tag;
+use App\Models\Tag;
+use App\Models\Job;
 
 
 class HomeController extends Controller
