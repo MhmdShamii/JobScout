@@ -3,7 +3,11 @@
 
         <section>
             <x-section-heading>Position</x-section-heading>
-            <h1>{{ $job->title }} / {{ $job->employment_type }}</h1>
+            <h1>{{ $job->title }} / {{ $job->employment_type }} / {{ $job->salary }}</h1>
+        </section>
+        <section>
+            <x-section-heading>Salary</x-section-heading>
+            <h1>{{ $job->salary }}</h1>
         </section>
 
         <section>

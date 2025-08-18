@@ -39,7 +39,11 @@ Route::middleware('guest')->group(function () {
 //Auth actions
 Route::middleware('auth')->group(function () {
     Route::delete('/logout', [LoginUserController::class, 'destroy']);
-    Route::get('/profile', [ProfileController::class, 'index']);
+
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.show');
+    Route::patch('/profile', [ProfileController::class, 'update']);
+    Route::patch('/profile/tags', [ProfileController::class, 'updateTags']);
+
 
     // users
     Route::post('/jobs/{job}/apply', [JobController::class, 'apply'])
