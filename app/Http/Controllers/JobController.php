@@ -13,7 +13,7 @@ class JobController extends Controller
     {
         $jobs = Job::with(['employer:id,name', 'tags:id,title'])
             ->latest()
-            ->paginate(15)
+            ->paginate(16)
             ->withQueryString();
 
         return view("jobs.index", [
@@ -80,5 +80,23 @@ class JobController extends Controller
         }
 
         return redirect("/jobs/{$job->id}")->with('success', 'Job created successfully.');
+    }
+
+    public function viewJobApplicants(Job $job)
+    {
+
+        $applicants = $job->applicants()
+            ->with('tags')
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('jobs.applications', compact('job', 'applicants'));
+    }
+
+
+    public function destroy(Job $job)
+    {
+        return Job::destroy($job);
     }
 }

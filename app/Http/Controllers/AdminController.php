@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\application;
+use App\Models\Application;
 use App\Models\Job;
 use App\Models\User;
 use App\Models\Request;
@@ -19,7 +19,7 @@ class AdminController extends Controller
         $pendingRequestsCount = Request::where('status', 'pending')->count();
         $deniedRequestsCount = Request::where('status', 'denial')->count();
         $tagsCount = Tag::count();
-        $applications = application::count();
+        $applications = Application::count();
         $jobsCount = Job::count();
 
         return view('admin.index', [

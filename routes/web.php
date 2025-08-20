@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/logout', [LoginUserController::class, 'destroy']);
 
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.show');
+    Route::get('/profile/{user}', [ProfileController::class, 'showSpeificUser']);
     Route::patch('/profile', [ProfileController::class, 'update']);
     Route::patch('/profile/tags', [ProfileController::class, 'updateTags']);
 
@@ -59,5 +60,10 @@ Route::middleware('auth')->group(function () {
     Route::middleware('can:isCompany')->group(function () {
         Route::get('/job/create', [JobController::class, 'create']);
         Route::post('/job/create', [JobController::class, 'store']);
+    });
+
+    Route::middleware('can:comp-act,job')->group(function () {
+        Route::get('/job/applications/{job}', [JobController::class, 'viewJobApplicants']);
+        Route::post('/job/delete/{job} ', [JobController::class, 'destroy']);
     });
 });

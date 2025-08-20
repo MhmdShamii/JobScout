@@ -21,8 +21,8 @@
         <nav class="grid grid-cols-[1fr_auto_1fr] items-center py-4 border-b border-white/20">
             <!-- Left (logo) -->
             <div class="justify-self-start">
-                <a href="">
-                    <img src="{{ Vite::asset('resources/images/logo.svg') }}" alt="">
+                <a href="/">
+                    <H2 class="bold text-2xl text-blue-500">The JobScout</H2>
                 </a>
             </div>
 
@@ -66,6 +66,10 @@
                                     @can('isCompany')
                                         <a href="/job/create" class="block px-4 py-2 text-sm hover:bg-white/5" role="menuitem">
                                             create Job</a>
+                                        <div class="my-1 border-t border-white/10"></div>
+                                        <a href="/companies/{{ Auth::User()->employer?->id }}"
+                                            class="block px-4 py-2 text-sm hover:bg-white/5" role="menuitem">
+                                            view Company</a>
                                         <div class="my-1 border-t border-white/10"></div>
                                     @endcan
                                     <x-forms.form method="POST" action="/logout" class="block">

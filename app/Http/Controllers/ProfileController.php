@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use App\Models\Tag;
+use App\Models\User;
 
 class ProfileController extends Controller
 {
@@ -21,7 +22,7 @@ class ProfileController extends Controller
         $allTags    = Tag::select('id', 'title')->orderBy('title')->get();
         $userTagIds = $userTags->pluck('id')->values();
 
-        return view('profile', compact('jobs', 'userTags', 'allTags', 'userTagIds', 'user'));
+        return view('profile.profile', compact('jobs', 'userTags', 'allTags', 'userTagIds', 'user'));
     }
 
     public function update()
@@ -52,5 +53,13 @@ class ProfileController extends Controller
         $user->tags()->sync($data['tags'] ?? []);
 
         return back()->with('success', 'Tags updated.');
+    }
+
+    public function showSpeificUser(User $user)
+    {
+
+        $tags   = $user->tags()->select('id', 'title')->get();
+
+        return view('profile.userProfile', ['user' => $user, "tags" => $tags]);
     }
 }

@@ -104,7 +104,7 @@
                 <div class="grid grid-cols-2 grid-rows-3 gap-4">
 
                     <x-panel class="col-span-2">
-                        <a href="/admin/requests" class="w-full text-center">Manage Jobs</a>
+                        <a href="/jobs" class="w-full text-center">Manage Jobs</a>
                     </x-panel>
                     <x-panel class="row-span-4 flex flex-col items-center justify-around">
                         <p class="text-blue-400 text-4xl">{{ $applications }}</p>
@@ -118,9 +118,5 @@
             </div>
         </div>
 
-
-        {{-- <div class="overflow-x-auto rounded-xl border border-white/10">
-    <x-table.table :columns="$columns" :rows="$users" />
-</div> --}}
     </div>
 </x-layout>

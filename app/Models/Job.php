@@ -20,18 +20,18 @@ class Job extends Model
         'featured'
     ];
 
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
     public function employer()
     {
         return $this->belongsTo(Employer::class);
     }
 
-    public function tags()
-    {
-        return $this->belongsToMany(Tag::class);
-    }
-
     public function applicants()
     {
-        return $this->belongsToMany(User::class, 'user_job_application', 'job_id', 'user_id');
+        return $this->belongsToMany(User::class, 'user_job_application', 'job_id', 'user_id')
+            ->withTimestamps(); // this adds pivot created_at / updated_at
     }
 }

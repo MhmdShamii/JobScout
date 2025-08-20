@@ -12,6 +12,7 @@ class HomeController extends Controller
     {
         $featuredJobs = Job::with('employer:id,name', 'tags:id,title')
             ->where('featured', true)
+            ->latest()
             ->take(6)
             ->get();
 
