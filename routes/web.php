@@ -25,7 +25,6 @@ Route::get('/jobs', [JobController::class, 'index']);
 Route::get('/jobs/{job}', [JobController::class, 'show']);
 
 Route::get('/companies', [CompaniesController::class, 'index']);
-Route::get('/companies/{company}', [CompaniesController::class, 'show']);
 
 Route::middleware('guest')->group(function () {
     Route::get('/register', [RegisterUserController::class, 'create']);
@@ -47,13 +46,20 @@ Route::middleware('auth')->group(function () {
 
 
     // users
-    Route::post('/jobs/{job}/apply', [JobController::class, 'apply'])
-        ->middleware('can:isUser');
+    Route::middleware('can:isUser')->group(function () {
+        Route::post('/jobs/{job}/apply', [JobController::class, 'apply']);
+        Route::get('/companies/request', [CompaniesController::class, 'userRequestToPrepareCompany']);
+        Route::post('/companies/request', [CompaniesController::class, 'userRequestToBecomeCompany']);
+    });
+    Route::get('/companies/{company}', [CompaniesController::class, 'show']);
 
     // Admin-only
     Route::middleware('can:isAdmin')->group(function () {
         Route::get('/admin', [AdminController::class, 'index']);
         Route::post('/tag/store', [TagController::class, 'store']);
+        Route::get('/admin/company-requests', [CompaniesController::class, 'viewCompanyRequests']);
+        Route::patch('/admin/company-requests/{companyRequest}/approve', [CompaniesController::class, 'approveCompanyRequest']);
+        Route::patch('/admin/company-requests/{companyRequest}/reject', [CompaniesController::class, 'rejectCompanyRequest']);
     });
 
     //companies
@@ -62,6 +68,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/job/create', [JobController::class, 'store']);
     });
 
+    //comon actions
     Route::middleware('can:comp-act,job')->group(function () {
         Route::get('/job/applications/{job}', [JobController::class, 'viewJobApplicants']);
         Route::post('/job/delete/{job} ', [JobController::class, 'destroy']);

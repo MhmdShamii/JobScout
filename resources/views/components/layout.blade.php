@@ -72,6 +72,14 @@
                                             view Company</a>
                                         <div class="my-1 border-t border-white/10"></div>
                                     @endcan
+
+                                    @can('isUser')
+                                        <a href="/companies/request" class="block px-4 py-2 text-sm hover:bg-white/5">
+                                            Request Company
+                                        </a>
+                                        <div class="my-1 border-t border-white/10"></div>
+                                    @endcan
+
                                     <x-forms.form method="POST" action="/logout" class="block">
                                         @method('DELETE')
                                         <button type="submit"

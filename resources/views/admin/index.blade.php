@@ -38,7 +38,7 @@
                         <p>Deniged</p>
                     </x-panel>
                     <x-panel class="col-span-4 row-start-3">
-                        <a href="/admin/requests" class="w-full text-center">Manage Requests</a>
+                        <a href="/admin/company-requests" class="w-full text-center">Manage Requests</a>
                     </x-panel>
                 </div>
             </div>
@@ -51,7 +51,6 @@
                         <p>Tags</p>
                     </x-panel>
 
-                    <!-- Button -->
                     <button @click="openTagModal = true"
                         class="bg-blue-500 hover:bg-blue-600 w-fit p-2 m-auto rounded-lg cursor-pointer text-white font-medium">
                         Add tag
