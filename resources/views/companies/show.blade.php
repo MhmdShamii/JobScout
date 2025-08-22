@@ -13,6 +13,10 @@
             @if ($company->description)
                 <p class="text-white/80 max-w-2xl mx-auto">{{ $company->description }}</p>
             @endif
+
+            @can('isCompany')
+                <a href="/job/create" class="block w-fit rounded-lg p-2 text-xs bg-blue-400 mb-4 ml-auto"> Create Job</a>
+            @endcan
         </section>
 
         <section class="bg-white/5 rounded-xl p-6">

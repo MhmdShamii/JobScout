@@ -115,17 +115,20 @@
             </div>
         </section>
 
-        <x-section-heading>Applications History</x-section-heading>
-        <section>
-            <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-5">
-                @foreach ($jobs as $job)
-                    <x-job-card title="{{ $job->title }}" company="{{ $job->employer->name }}"
-                        company_url="/companies/{{ $job->employer->id }}" job_url="/jobs/{{ $job->id }}"
-                        salary="{{ $job->salary }}" type="{{ $job->employment_type }}" :tags="$job->tags"
-                        img="https://picsum.photos/seed/{{ $job->id }}/42/42" />
-                @endforeach
-            </div>
-        </section>
+        @can('isUser')
+
+            <x-section-heading>Applications History</x-section-heading>
+            <section>
+                <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-5">
+                    @foreach ($jobs as $job)
+                        <x-job-card title="{{ $job->title }}" company="{{ $job->employer->name }}"
+                            company_url="/companies/{{ $job->employer->id }}" job_url="/jobs/{{ $job->id }}"
+                            salary="{{ $job->salary }}" type="{{ $job->employment_type }}" :tags="$job->tags"
+                            img="https://picsum.photos/seed/{{ $job->id }}/42/42" />
+                    @endforeach
+                </div>
+            </section>
+        @endcan
 
         {{-- TAGS MODAL --}}
         <div x-cloak x-show="editTags" class="fixed inset-0 z-50 flex items-center justify-center">
@@ -211,7 +214,6 @@
                     <form method="POST" action="/profile/tags" class="mt-4">
                         @csrf
                         @method('PATCH')
-
                         <template x-for="id in Array.from(selectedIds)" :key="'hidden-' + id">
                             <input type="hidden" name="tags[]" :value="id">
                         </template>

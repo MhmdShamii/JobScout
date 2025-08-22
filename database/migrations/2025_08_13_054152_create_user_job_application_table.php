@@ -17,8 +17,8 @@ return new class extends Migration
     {
         Schema::create('user_job_application', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class);
-            $table->foreignIdFor(Job::class);
+            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Job::class)->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

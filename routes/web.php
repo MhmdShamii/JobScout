@@ -71,6 +71,8 @@ Route::middleware('auth')->group(function () {
     //comon actions
     Route::middleware('can:comp-act,job')->group(function () {
         Route::get('/job/applications/{job}', [JobController::class, 'viewJobApplicants']);
-        Route::post('/job/delete/{job} ', [JobController::class, 'destroy']);
+        Route::get('/job/{job}/edit', [JobController::class, 'edit']);
+        Route::patch('/job/{job}', [JobController::class, 'update']);
+        Route::delete('/job/{job}', [JobController::class, 'destroy']);
     });
 });

@@ -9,11 +9,14 @@
         @can('comp-act', $job)
             <div class="flex justify-between gap-1">
 
-                <form action="post" action="/job/delete/{{ $job }}">
+                <form method="POST" action="/job/{{ $job->id }}">
                     @csrf
+                    @method('DELETE')
                     <button
-                        class="text-xs bg-red-300 p-2 rounded-lg text-red-800 hover:bg-red-400  hover:text-red-900 cursor-pointer"
-                        type="submit">Delete</button>
+                        class="text-xs bg-red-300 p-2 rounded-lg text-red-800 hover:bg-red-400 hover:text-red-900 cursor-pointer w-full"
+                        type="submit">
+                        Delete
+                    </button>
                 </form>
                 <a href="/job/{{ $job->id }}/edit"
                     class="text-xs bg-orange-300 p-2 rounded-lg text-orange-800 hover:bg-orange-400  hover:text-orange-900 cursor-pointer block text-center {{ request()->is("job/edit/$job->id") ? 'hidden' : 'block' }}">Edit</a>
