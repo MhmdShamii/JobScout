@@ -14,9 +14,7 @@
 
                     <span
                         class="px-2 py-1 rounded text-xs
-                        {{ $request->status === 'pending' ? 'bg-yellow-500/20 text-yellow-300' : '' }}
-                        {{ $request->status === 'approved' ? 'bg-green-500/20 text-green-300' : '' }}
-                        {{ $request->status === 'rejected' ? 'bg-red-500/20 text-red-300' : '' }}">
+                        {{ $request->status === 'pending' ? 'bg-yellow-500/20 text-yellow-300' : '' }}">
                         {{ ucfirst($request->status) }}
                     </span>
                 </div>
@@ -39,8 +37,7 @@
                         <div class="md:col-span-2">
                             <p class="text-sm text-white/60">Logo</p>
                             {{-- If logo is a URL/path --}}
-                            <img src="{{ $request->logo }}" alt="Logo"
-                                class="h-16 object-contain mt-1 rounded-2xl">
+                            <img src="{{ $request->logo }}" alt="Logo" class="h-16 object-contain mt-1 rounded-2xl">
                         </div>
                     @endif
                 </div>
@@ -54,8 +51,7 @@
                             <button class="px-3 py-2 rounded-lg bg-green-600 hover:bg-green-700">Approve</button>
                         </form>
 
-                        <form method="POST" action="/admin/company-requests/{{ $request->id }}/reject"
-                            onsubmit="return confirm('Reject this request?');">
+                        <form method="POST" action="/admin/company-requests/{{ $request->id }}/reject">
                             @csrf
                             @method('PATCH')
                             <button class="px-3 py-2 rounded-lg bg-red-600 hover:bg-red-700">Reject</button>

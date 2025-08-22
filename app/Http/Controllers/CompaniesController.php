@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\CompanyRequest;
 use Illuminate\Http\Request;
 use App\Models\Employer;
-use App\Models\User;
-use Faker\Provider\ar_EG\Company;
 
 class CompaniesController extends Controller
 {
@@ -40,6 +38,12 @@ class CompaniesController extends Controller
 
     public function userRequestToBecomeCompany(Request $request)
     {
+        $user = $request->user();
+
+        if (CompanyRequest::where('user_id', $user->id)->exists()) {
+            return back()->with('error', 'You already submitted a company request.');
+        }
+
         $data = $request->validate([
             'company_name' => 'required|string|max:255',
             'description'  => 'required|string|max:1000',
@@ -48,16 +52,18 @@ class CompaniesController extends Controller
         ]);
 
         CompanyRequest::create([
-            'user_id'      => $request->user()->id,
-            'comp_name' => $data['company_name'],
-            'location'     => $data['location'],
-            'description'  => $data['description'],
-            'logo'         => $data['logo'] ?? "https://picsum.photos/seed/{{ $request->user()->id }}/42/42",
-            'status'       => 'pending',
+            'user_id'     => $user->id,
+            'comp_name'   => $data['company_name'],
+            'location'    => $data['location'],
+            'description' => $data['description'],
+            'logo'        => $data['logo'] ?? "https://picsum.photos/seed/{$user->id}/42/42",
+            'status'      => 'pending',
         ]);
 
         return back()->with('success', 'Request submitted. We will review it soon.');
     }
+
+
     public function viewCompanyRequests()
     {
         $requests = CompanyRequest::with('user:id,name,email')->where('status', 'pending')
@@ -81,5 +87,11 @@ class CompaniesController extends Controller
         ]);
 
         return back()->with('success', 'Request approved.');
+    }
+
+    public function rejectCompanyRequest(CompanyRequest $companyRequest)
+    {
+        $companyRequest->update(['status' => 'rejected']);
+        return back()->with('success', 'Request rejected.');
     }
 }

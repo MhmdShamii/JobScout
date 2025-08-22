@@ -17,7 +17,7 @@ class AdminController extends Controller
         $companiesCount = User::where('role', 'company')->count();
         $adminsCount = User::where('role', 'admin')->count();
         $pendingRequestsCount = Request::where('status', 'pending')->count();
-        $deniedRequestsCount = Request::where('status', 'denial')->count();
+        $deniedRequestsCount = Request::where('status', 'rejected')->count();
         $tagsCount = Tag::count();
         $applications = Application::count();
         $jobsCount = Job::count();
