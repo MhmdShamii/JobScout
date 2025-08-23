@@ -44,7 +44,6 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update']);
     Route::patch('/profile/tags', [ProfileController::class, 'updateTags']);
 
-
     // users
     Route::middleware('can:isUser')->group(function () {
         Route::post('/jobs/{job}/apply', [JobController::class, 'apply']);

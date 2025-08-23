@@ -36,21 +36,20 @@
 
         {{-- Employment type --}}
         <x-forms.label Label="Employment type" name='' />
+
+        @php
+            $types = ['Full time', 'Part time', 'Internship', 'Contract'];
+        @endphp
         <select name="employment_type"
             class="w-full rounded-lg px-3 py-2 bg-neutral-800 text-neutral-100
         border border-neutral-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-            @foreach ([
-        'Full
-            time',
-        'Part time',
-        'Internship',
-        'Contract',
-    ] as $type)
+            @foreach ($types as $type)
                 <option value="{{ $type }}" {{ $job->employment_type === $type ? 'selected' : '' }}>
                     {{ $type }}
                 </option>
             @endforeach
         </select>
+
 
         {{-- TAG PICKER (same UI as create) --}}
         <x-forms.label Label="Tags" name='' />
@@ -110,6 +109,21 @@
                 <input type="hidden" name="tags[]" :value="id">
             </template>
         </div>
+
+        {{-- Featured checkbox --}}
+        <label class="inline-flex items-center cursor-pointer mt-3">
+            <input type="checkbox" name="featured" value="1" {{ $job->featured ? 'checked' : '' }}
+                class="sr-only peer">
+            <div
+                class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4
+               peer-focus:ring-blue-300 rounded-full peer dark:bg-gray-700
+               peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full
+               after:content-[''] after:absolute after:top-[2px] after:start-[2px]
+               after:bg-white after:border-gray-300 after:border after:rounded-full
+               after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600">
+            </div>
+            <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Featured</span>
+        </label>
 
         <x-forms.button class="mt-4">Update</x-forms.button>
     </x-forms.form>

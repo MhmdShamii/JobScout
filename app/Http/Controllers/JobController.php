@@ -96,6 +96,7 @@ class JobController extends Controller
     }
     public function edit(Job $job)
     {
+
         $tags = Tag::select('id', 'title')
             ->orderBy('title')
             ->get();
@@ -109,11 +110,9 @@ class JobController extends Controller
             'selectedTagIds'  => $selectedTagIds,
         ]);
     }
+
     public function update(Request $request, Job $job)
     {
-        // (Policy/middleware already ensures the user can update this job)
-
-        // Validate inputs (same rules as store)
         $data = $request->validate([
             'title'            => ['required', 'string', 'max:255'],
             'description'      => ['nullable', 'string'],
@@ -126,26 +125,25 @@ class JobController extends Controller
             'tags.*'           => ['integer', 'exists:tags,id'],
         ]);
 
-        // Format salary into one column (same format as store)
+        // Match store() formatting
         $data['salary'] = ($data['salary_type'] === 'usd' ? '$ ' : 'LBP ')
             . $data['salary']
             . ($data['salary_type'] === 'usd' ? ' USD' : '');
 
-        // Normalize featured checkbox to boolean
         $data['featured'] = $request->boolean('featured');
 
-        // Don't allow employer_id or salary_type to be mass-assigned
+        // Don't mass-assign tags or salary_type
         $payload = Arr::except($data, ['tags', 'salary_type']);
 
-        // Update job fields
         $job->update($payload);
 
-        // Sync tags (clears if none selected)
+        // Sync tags
         $job->tags()->sync($request->input('tags', []));
 
-        return redirect("/jobs/{$job->id}")
+        return redirect("/jobs/{$job->id}") // ✅ keep singular to match your routes
             ->with('success', 'Job updated successfully.');
     }
+
 
     public function destroy(Job $job)
     {

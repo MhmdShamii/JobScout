@@ -33,7 +33,7 @@
                     </button>
                 </form>
                 <a href="/job/{{ $job->id }}/edit"
-                    class="text-xs bg-orange-300 p-2 rounded-lg text-orange-800 hover:bg-orange-400  hover:text-orange-900 cursor-pointer block text-center {{ request()->is("job/edit/$job->id") ? 'hidden' : 'block' }}">Edit</a>
+                    class="text-xs bg-orange-300 p-2 rounded-lg text-orange-800 hover:bg-orange-400  hover:text-orange-900 cursor-pointer block text-center {{ request()->is("job/$job->id/edit") ? 'hidden' : 'block' }}">Edit</a>
                 <a href="/job/applications/{{ $job->id }}"
                     class="text-xs bg-blue-300 p-2 rounded-lg text-blue-800 hover:bg-blue-400  hover:text-blue-900 cursor-pointer block text-center {{ request()->is("job/applications/$job->id") ? 'hidden' : 'block' }}">Applications</a>
             </div>
